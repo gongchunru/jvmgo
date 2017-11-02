@@ -53,6 +53,6 @@ func (self *ClassReader) readUint16s() []uint16  {
 //读取指定数量的字节
 func (self *ClassReader) readBytes(n uint32) []byte  {
 	bytes := self.data[:n]
-	self.data = self.data[n]
+	self.data = self.data[n:]
 	return bytes
 }

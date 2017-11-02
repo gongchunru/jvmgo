@@ -41,12 +41,15 @@ func (self ConstantPool) getNameAndType(index uint16) (string, string) {
 	return name,_type
 
 }
-
+// 从常量池查找类名
 func (self ConstantPool) getClassName(index uint16) string {
 	//通过索引读取CONSTANT_Class_info
+	classInfo := self.getConstantInfo(index).(*ConstantClassInfo)
+	return self.getUtf8(classInfo.nameIndex)
 }
 
 // 通过索引获取ConstantUtf8Info结构体的字面值
 func (self ConstantPool) getUtf8(index uint16)  string {
-
+	utf8Info := self.getConstantInfo(index).(*ConstantUtf8Info)
+	return utf8Info.str
 }
