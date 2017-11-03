@@ -34,7 +34,7 @@ func (self *MemberInfo) AccessFlags() uint16{
 
 }
 //从常量池中查找字段和方法名
-func (self *MemberInfo) name() string  {
+func (self *MemberInfo) Name() string  {
 	return self.cp.getUtf8(self.nameIndex)
 }
 

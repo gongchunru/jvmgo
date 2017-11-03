@@ -34,7 +34,7 @@ func (self *ConstantFloatInfo) readInfo(reader *ClassReader)  {
 }
 
 // 获取float32常量值
-func (self *ConstantFloatInfo) value() float32  {
+func (self *ConstantFloatInfo) Value() float32  {
 	return self.val
 }
 
@@ -46,7 +46,6 @@ type ConstantLongInfo struct {
 func (self *ConstantLongInfo) readInfo(reader *ClassReader)  {
 	//读取8个字节
 	bytes := reader.readUint64()
-
 	//将bytes转换为int64
 	self.val = int64(bytes)
 }
@@ -62,8 +61,10 @@ type ConstantDoubleInfo struct {
 }
 
 //读取ConstantDoubleInfo
-func (self *ConstantDoubleInfo) readInfo(reader *ClassReader) float64  {
-	bytes:=reader.readUint64()
+func (self *ConstantDoubleInfo) readInfo(reader *ClassReader)  {
+	//读取8个字节
+	bytes := reader.readUint64()
+	//将bytes转换为float64
 	self.val = math.Float64frombits(bytes)
 }
 

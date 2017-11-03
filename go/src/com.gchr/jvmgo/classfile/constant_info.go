@@ -22,7 +22,7 @@ type ConstantInfo interface {
 }
 // 函数先读出tag值，然后调用newConstantInfo（）函
 // 数创建具体的常量，最后调用常量的readInfo（）方法读取常量信息
-func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantPool  {
+func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo  {
 	tag := reader.readUint8()
 	c := newConstantInfo(tag, cp)
 	c.readInfo(reader)
