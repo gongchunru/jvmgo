@@ -16,6 +16,21 @@ type ExceptionTableEntry struct {
 	catchType uint16
 }
 
+// 读取Code属性
+func (self *CodeAttribute) readInfo(reader *ClassReader) {
+	// 读取2个字节的maxStack
+	self.maxStack = reader.readUint16()
+	// 读取2个字节的maxLocals
+	self.maxLocals = reader.readUint16()
+	// 读取4个字节的code长度
+	codeLength := reader.readUint32()
+	// 读取指定字节数的code
+	self.code = reader.readBytes(codeLength)
+	// 读取异常处理表
+	self.exceptionTable = readExceptionTable(reader)
+	self.attributes = readAttributes(reader, self.cp)
+}
+
 //读取异常处理表
 func readExceptionTable(reader *ClassReader) []*ExceptionTableEntry  {
 	//读取2个字节的exception_table_length

@@ -1,6 +1,5 @@
 package classfile
 
-import "debug/dwarf"
 
 // 统一的结构体
 type MarkerAttribute struct{}
