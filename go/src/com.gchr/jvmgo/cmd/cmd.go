@@ -13,6 +13,8 @@ java [-options] class [args...]
 type Cmd struct {
 	HelpFlag bool
 	VersionFlag bool
+	VerboseClassFlag bool
+	VerboseInstFlag  bool
 	CpOption string
 	XjreOption string
 	Class  string
@@ -37,6 +39,9 @@ func ParseCmd() *Cmd  {
 	 flag.BoolVar(&cmd.HelpFlag,"help",false,"print help message")
 	 flag.BoolVar(&cmd.HelpFlag, "?", false, "print help message")
 	 flag.BoolVar(&cmd.VersionFlag, "version", false,"print version and exit")
+	 flag.BoolVar(&cmd.VerboseClassFlag, "verbose", false, "enable verbose output")
+	 flag.BoolVar(&cmd.VerboseClassFlag, "verbose:class", false, "enable verbose output")
+	 flag.BoolVar(&cmd.VerboseInstFlag, "verbose:inst", false, "enable verbose output")
 	 flag.StringVar(&cmd.CpOption, "classpath","","classpath")
 	 flag.StringVar(&cmd.CpOption,"cp","","classpath")
 	 flag.StringVar(&cmd.XjreOption,"Xjre","","path to jre")
@@ -54,6 +59,5 @@ func ParseCmd() *Cmd  {
 
 func PrintUsage()  {
 	fmt.Printf("Usage: %s [-options] class [args...]\n", os.Args[0])
-
 }
 
