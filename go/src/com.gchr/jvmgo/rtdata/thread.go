@@ -26,17 +26,18 @@ func NewThread() *Thread{
 	}
 }
 func (self *Thread) PC() int  {
-
+	return self.pc
 }
 
 func (self *Thread) PushFrame(frame *Frame) {
-	//self.stack.
+	self.stack.push(frame)
 }
 
 func (self *Thread) PopFrame() *Frame {
-	//return self.stack
+	return self.stack.pop()
 }
 
+// 返回当前帧
 func (self *Thread) CurrentFrame() *Frame  {
-	//return
+	return self.stack.top()
 }

@@ -45,6 +45,7 @@ func (self *Stack) pop() *Frame  {
 	return top
 }
 
+// 只返回栈顶指针，不弹出
 func (self *Stack) top() *Frame  {
 	if self._top == nil{
 		panic("jvm stack is empty@")

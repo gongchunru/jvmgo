@@ -4,10 +4,10 @@ package main
 import (
 	"com.gchr/jvmgo/cmd"
 	 "fmt"
-
 	"com.gchr/jvmgo/classpath"
-	"strings"
+	//"strings"
 	"com.gchr/jvmgo/classfile"
+	"com.gchr/jvmgo/rtdata"
 )
 
 func main()  {
@@ -24,13 +24,19 @@ func main()  {
 
 //模拟启动JVM
 func startJVM(cmd *cmd.Cmd)  {
-	cp := classpath.Parse(cmd.XjreOption, cmd.CpOption)
+	//cp := classpath.Parse(cmd.XjreOption, cmd.CpOption)
+	//
+	//// 将.替换成/ （java.lang.String -> java/lang/String）
+	//className := strings.Replace(cmd.Class, ".", "/", -1)
+	//cf := loadClass(className, cp)
+	//fmt.Println(cmd.Class)
+	//printClassInfo(cf)
 
-	// 将.替换成/ （java.lang.String -> java/lang/String）
-	className := strings.Replace(cmd.Class, ".", "/", -1)
-	cf := loadClass(className, cp)
-	fmt.Println(cmd.Class)
-	printClassInfo(cf)
+	// ch4
+
+	frame := rtdata.NewFrame(100,100)
+	testLocalVars(frame.LocalVars())
+	testOperandStack(frame.OperandStack())
 }
 
 // 读取并解析class文件
@@ -63,4 +69,42 @@ func printClassInfo(cf *classfile.ClassFile)  {
 	for _, m := range cf.Methods() {
 		fmt.Printf(" %s\n", m.Name())
 	}
+}
+
+func testLocalVars(vars rtdata.LocalVars)  {
+	vars.SetInt(0,100)
+	vars.SetInt(1,-100)
+	vars.SetLong(2,2997924580)
+	vars.SetLong(4, -2997924580)
+	vars.SetFloat(6, 3.1415926)
+	vars.SetDouble(7, 2.71828182845)
+	vars.SetRef(9, nil)
+
+	println(vars.GetInt(0))
+	println(vars.GetInt(1))
+	println(vars.GetLong(2))
+	println(vars.GetLong(4))
+
+
+	println(vars.GetFloat(6))
+	println(vars.GetDouble(7))
+	println(vars.GetRef(9))
+}
+
+
+func testOperandStack(ops *rtdata.OperandStack){
+	ops.PushInt(100)
+	ops.PushInt(-100)
+	ops.PushLong(2997924580)
+	ops.PushLong(-2997924580)
+	ops.PushFloat(3.1415926)
+	ops.PushDouble(2.71828182845)
+	ops.PushRef(nil)
+	println(ops.PopRef())
+	println(ops.PopDouble())
+	println(ops.PopFloat())
+	println(ops.PopLong())
+	println(ops.PopLong())
+	println(ops.PopInt())
+	println(ops.PopInt())
 }

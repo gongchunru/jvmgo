@@ -36,7 +36,7 @@ func (self *OperandStack) PushFloat(val float32)  {
 	self.size++
 }
 
-func (self *OperandStack) PotFloat() float32  {
+func (self *OperandStack) PopFloat() float32  {
 	self.size--
 	bits := uint32(self.slots[self.size].num)
 	return math.Float32frombits(bits)
