@@ -1,3 +1,5 @@
+!.gitignore
+
 _err_pid*
 
 # Idea
