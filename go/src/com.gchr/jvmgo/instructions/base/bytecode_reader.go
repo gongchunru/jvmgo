@@ -19,6 +19,7 @@ func (self *BytecodeReader) ReadUint8() uint8 {
 	return i
 }
 
+// 将uint8转成int8
 func (self *BytecodeReader) ReadInt8() int8  {
 	return int8(self.ReadUint8())
 }

@@ -79,3 +79,15 @@ func (self *OperandStack) PopRef() *heap.Object {
 	self.slots[self.size].ref = nil
 	return ref
 }
+
+//推入 ，弹出一个slot
+func (self *OperandStack) PushSlot(slot Slot)  {
+	self.slots[self.size] = slot;
+	self.size++
+}
+func (self *OperandStack) PopSlot() Slot {
+	self.size--
+	return self.slots[self.size]
+}
+
+

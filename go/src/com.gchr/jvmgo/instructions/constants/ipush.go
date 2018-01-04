@@ -5,6 +5,7 @@ import (
 	"com.gchr/jvmgo/rtdata"
 )
 
+// bipush 指令从操作数中获取一个byte
 // push byte
 type BIPUSH struct {
 	val int8
