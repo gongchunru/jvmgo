@@ -18,6 +18,7 @@ const (
 )
 // 表示常量信息
 type ConstantInfo interface {
+	// 读取常量信息，由具体的常量结构体实现
 	readInfo(reader *ClassReader)
 }
 // 函数先读出tag值，然后调用newConstantInfo（）函
