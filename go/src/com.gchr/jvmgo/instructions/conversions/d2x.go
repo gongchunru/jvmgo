@@ -29,4 +29,7 @@ type D2I struct {
 
 func (self *D2I) Execute(frame *rtdata.Frame)  {
 	stack := frame.OperandStack()
+	d := stack.PopDouble()
+	l := int64(d)
+	stack.PushLong(l)
 }
