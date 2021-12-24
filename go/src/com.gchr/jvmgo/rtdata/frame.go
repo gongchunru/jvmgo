@@ -20,18 +20,19 @@ type Frame struct {
 	method *heap.Method
 }
 
-// 实例化帧
+// NewFrame 实例化帧
 /*
 	执行方法所需要的局部变量表的大小和操作数栈深度是由编译器预先计算好的
 	存储在class文件的method_info结构的Code属性中
- */
+*/
 func NewFrame(maxLocals, maxStack uint) *Frame {
 	return &Frame{
-		localVars:newLocalVars(maxLocals),
-		operandStack:newOperandStack(maxStack),
+		localVars:    newLocalVars(maxLocals),
+		operandStack: newOperandStack(maxStack),
 	}
 }
-// localVars和operandStackGet方法
+
+// LocalVars localVars和operandStackGet方法
 func (self *Frame) LocalVars() LocalVars {
 	return self.localVars
 }
@@ -39,21 +40,24 @@ func (self *Frame) OperandStack() *OperandStack {
 	return self.operandStack
 }
 
-func (self *Frame) Thread() *Thread{
+func (self *Frame) Thread() *Thread {
 	return self.thread
 }
 
-func (self *Frame) NextPC() int  {
+func (self *Frame) NextPC() int {
 	return self.nextPC
 }
 
-func (self *Frame) SetNextPC(nextPC int)  {
+func (self *Frame) SetNextPC(nextPC int) {
 	self.nextPC = nextPC
 }
 
-//重置nextPC
-func (self *Frame) Method() *heap.Method  {
+func (self *Frame) Method() *heap.Method {
+	return self.method
+}
+
+// RevertNextPC 重置nextPC
+func (self *Frame) RevertNextPC() {
 	// Thread的pc寄存器字段始终指向当前指令地址
 	self.nextPC = self.thread.pc
 }
-
