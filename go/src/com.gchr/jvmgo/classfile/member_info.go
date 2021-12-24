@@ -41,3 +41,39 @@ func (self *MemberInfo) Name() string  {
 func (self *MemberInfo) Descriptor() string {
 	return self.cp.getUtf8(self.descriptorIndex)
 }
+
+// 读取code属性
+func (self *MemberInfo) CodeAttribute() *CodeAttribute  {
+	// 遍历一个method_info中的attribute
+	for _,attrInfo := range self.attributes{
+		switch attrInfo.(type) {
+		case *CodeAttribute:
+			return attrInfo.(*CodeAttribute)
+		}
+	}
+	return nil
+}
+
+
+// 读取ConstantValue属性
+func (self *MemberInfo) ConstantValueAttribute() *ConstantValueAttribute  {
+	// 遍历field_info中的attributes
+	for _, attrInfo := range self.attributes{
+		switch attrInfo.(type) {
+		case *ConstantValueAttribute:
+			return attrInfo.(*ConstantValueAttribute)
+		}
+	}
+return nil
+}
+
+
+
+
+
+
+
+
+
+
+

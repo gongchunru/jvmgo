@@ -1,5 +1,7 @@
 package rtdata
 
+import "com.gchr/jvmgo/rtdata/heap"
+
 // 帧
 type Frame struct {
 	// 实现链表数据结构
@@ -8,6 +10,14 @@ type Frame struct {
 	localVars LocalVars
 	// 保存操作数栈指针
 	operandStack *OperandStack
+	//线程指针
+	thread *Thread
+
+	// 下个PC寄存器地址（为了实现跳转）
+	nextPC int
+
+	//方法区的方法信息指针
+	method *heap.Method
 }
 
 // 实例化帧
@@ -27,5 +37,23 @@ func (self *Frame) LocalVars() LocalVars {
 }
 func (self *Frame) OperandStack() *OperandStack {
 	return self.operandStack
+}
+
+func (self *Frame) Thread() *Thread{
+	return self.thread
+}
+
+func (self *Frame) NextPC() int  {
+	return self.nextPC
+}
+
+func (self *Frame) SetNextPC(nextPC int)  {
+	self.nextPC = nextPC
+}
+
+//重置nextPC
+func (self *Frame) Method() *heap.Method  {
+	// Thread的pc寄存器字段始终指向当前指令地址
+	self.nextPC = self.thread.pc
 }
 
